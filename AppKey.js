@@ -7,7 +7,7 @@ class AppKey {
   next = null;
   prev = null;
 
-  constructor(master, next, prev) {
+  constructor(master) {
     this.master = master;
 
     if (master.color === 'white') {
@@ -20,6 +20,15 @@ class AppKey {
   }
   setPrevious() {}
   setNext() {}
+
+  step(n) {
+    let key = this;
+    for (let i = 0; i < n; i++) {
+      key = key.next;
+    }
+    return key;
+  }
+
   generateGfx(pos, size) {
     const key = document.createElementNS(xmlns, 'rect');
     key.style.fill = this.baseColor;
@@ -45,11 +54,13 @@ class AppKey {
   press() {
     this.state = 'down';
     this.gfxKey.style.fill = this.activeColor;
+    return this;
   }
 
   release() {
     this.state = 'up';
     this.gfxKey.style.fill = this.baseColor;
+    return this;
   }
 
   highlight() {}

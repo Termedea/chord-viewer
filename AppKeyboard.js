@@ -21,8 +21,15 @@ class AppKeyboard {
     this.pianoMaster = pianoMaster;
     const octLength = this.pianoMaster.octave.length;
 
+    let prev = null;
+
     for (let i = this.octStart * octLength; i < (this.octStart + this.octCount) * octLength; i++) {
-      this.keys.push(new AppKey(ths.pianoMaster.keys[i]));
+      const current = new AppKey(this.pianoMaster.keys[i]);
+      current.prev = prev;
+      prev && (prev.next = current);
+      this.keys.push(current);
+      prev = current;
+      current.next = null;
     }
   }
 
@@ -74,6 +81,7 @@ class AppKeyboard {
   press = (code) => {
     const currKey = this.getKeyByMIDICode(code);
     if (currKey) currKey.press();
+    console.log(currKey);
   };
 
   release = (code) => {
@@ -85,14 +93,7 @@ class AppKeyboard {
     return this.keys.filter((key) => key.master.getMidiCode() === code)[0] || null;
   }
 
-  getMajorChord(code) {
-    return {
-      root: this.getKeyByMIDICode(code),
-      third: this.getKeyByMIDICode(code + 4),
-      fifth: this.getKeyByMIDICode(code + 7)
-    };
-    /* Hämta fyra steg bort, hämta tre steg till bort */
-  }
+  getMajorChord(code) {}
 
   getNext(root) {}
 }
