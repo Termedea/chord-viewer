@@ -3,7 +3,7 @@ class AppKey {
   master = null;
   state = 'up';
   baseColor = '';
-  activeColor = '';
+  activeColor = 'rgb(86, 55, 133)';
   next = null;
   prev = null;
 
@@ -12,10 +12,8 @@ class AppKey {
 
     if (master.color === 'white') {
       this.baseColor = '#ffffff';
-      this.activeColor = 'rgb(86, 55, 133)';
     } else {
       this.baseColor = 'rgb(58, 56, 69)';
-      this.activeColor = '#ffff00';
     }
   }
   setPrevious() {}
