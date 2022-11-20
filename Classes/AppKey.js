@@ -1,4 +1,4 @@
-import { XMLNS } from './constants.js';
+import { XMLNS } from '../constants.js';
 
 export default class AppKey {
   gfxKey = null;
