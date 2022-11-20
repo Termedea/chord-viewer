@@ -64,14 +64,27 @@
       outline: 0;
       border: 2px solid var(--black);
     }
+
+    .answer,
+    .question {
+      display: none;
+    }
   </style>
 </head>
 
 <body>
   <div id="playArea">
-    <div class="question">
-      <h2 class="question__heading" id="questionHeading">Play</h2>
-      <h3 class="question__sub-heading" id="question">C# minor, 1st inversion</h3>
+
+    <div class="output">
+      <div class="question">
+        <h2 class="question__heading" id="questionHeading">Play</h2>
+        <h3 class="question__sub-heading" id="question">C# minor, 1st inversion</h3>
+      </div>
+      <div class="info">
+
+        <h2>What chord is this?</h2>
+        <h3 id="identification"></h3>
+      </div>
     </div>
     <div class="answer" id="answer">
       <label class="answer__label" for="answer">Answer:</label>
@@ -97,11 +110,8 @@
       </g> -->
   <!-- </svg> -->
 
-  <script src="Key.js"></script>
-  <script src="Piano.js"></script>
-  <script src="AppKey.js"></script>
-  <script src="AppKeyboard.js"></script>
-  <script src="script.js"></script>
+
+  <script type="module" src="script.js"></script>
 </body>
 
 </html>

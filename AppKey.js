@@ -1,4 +1,6 @@
-class AppKey {
+import { XMLNS } from './constants.js';
+
+export default class AppKey {
   gfxKey = null;
   master = null;
   state = 'up';
@@ -28,7 +30,7 @@ class AppKey {
   }
 
   generateGfx(pos, size) {
-    const key = document.createElementNS(xmlns, 'rect');
+    const key = document.createElementNS(XMLNS, 'rect');
     key.style.fill = this.baseColor;
     key.style.stroke = '#000000';
     key.setAttributeNS(null, 'y', '0');

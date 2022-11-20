@@ -1,19 +1,19 @@
-class Piano {
+import Key from './Key.js';
+export default class Piano {
   keys = [];
-
   octave = [
-    { name: ['bsharp', 'c'], color: 'white' },
-    { name: ['csharp', 'dflat'], color: 'black' },
-    { name: ['d'], color: 'white' },
-    { name: ['dsharp', 'eflat'], color: 'black' },
-    { name: ['e', 'fflat'], color: 'white' },
-    { name: ['esharp', 'f'], color: 'white' },
-    { name: ['gflat'], color: 'black' },
-    { name: ['g'], color: 'white' },
-    { name: ['aflat'], color: 'black' },
-    { name: ['a'], color: 'white' },
-    { name: ['bflat'], color: 'black' },
-    { name: ['b'], color: 'white' }
+    { name: ['C'], fullName: ['bsharp', 'c'], color: 'white' },
+    { name: ['D♭'], fullName: ['csharp', 'dflat'], color: 'black' },
+    { name: ['D'], fullName: ['d'], color: 'white' },
+    { name: ['E♭'], fullName: ['dsharp', 'eflat'], color: 'black' },
+    { name: ['E'], fullName: ['e', 'fflat'], color: 'white' },
+    { name: ['F'], fullName: ['esharp', 'f'], color: 'white' },
+    { name: ['G♭'], fullName: ['gflat'], color: 'black' },
+    { name: ['G'], fullName: ['g'], color: 'white' },
+    { name: ['A♭'], fullName: ['aflat'], color: 'black' },
+    { name: ['A'], fullName: ['a'], color: 'white' },
+    { name: ['B♭'], fullName: ['bflat'], color: 'black' },
+    { name: ['B'], fullName: ['b'], color: 'white' }
   ];
 
   constructor() {

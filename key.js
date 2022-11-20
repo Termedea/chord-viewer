@@ -1,4 +1,4 @@
-class Key {
+export default class Key {
   name = [];
   midiCode = 0;
   octIdx = 0;
@@ -15,7 +15,4 @@ class Key {
   getMidiCode() {
     return this.midiCode;
   }
-
-  prevHalfStep() {}
-  nextHalfStep() {}
 }

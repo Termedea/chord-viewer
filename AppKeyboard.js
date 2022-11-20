@@ -1,4 +1,8 @@
-class AppKeyboard {
+import AppKey from './AppKey.js';
+import Chord from './Chord.js';
+import { XMLNS } from './constants.js';
+
+export default class AppKeyboard {
   sizeFactor = 2;
   octCount = 2;
   octStart = 4;
@@ -16,9 +20,14 @@ class AppKeyboard {
   };
 
   pianoMaster = null;
+  chords;
+  changeMessage;
 
-  constructor(pianoMaster) {
+  constructor(pianoMaster, changeMessage) {
     this.pianoMaster = pianoMaster;
+    this.chord = new Chord();
+    this.changeMessage = changeMessage;
+
     const octLength = this.pianoMaster.octave.length;
 
     let prev = null;
@@ -47,7 +56,7 @@ class AppKeyboard {
   }
 
   generateOctGfx(octIndex, octWidth) {
-    const gfxOct = document.createElementNS(xmlns, 'g');
+    const gfxOct = document.createElementNS(XMLNS, 'g');
     gfxOct.setAttributeNS(null, 'id', `oct${octIndex + this.octStart}`);
     gfxOct.style.transform = `translateX(${octWidth * octIndex}px)`;
 
@@ -81,7 +90,6 @@ class AppKeyboard {
   press = (code) => {
     const currKey = this.getKeyByMIDICode(code);
     if (currKey) currKey.press();
-    console.log(currKey);
   };
 
   release = (code) => {
@@ -89,11 +97,22 @@ class AppKeyboard {
     if (currKey) currKey.release();
   };
 
+  getAllPressed() {
+    return this.keys.filter((key) => key.state === 'down');
+  }
+
+  keyStateChange() {
+    const matches = this.chord.findChords(this.getAllPressed());
+    if (matches.length > 0) {
+      this.changeMessage(matches.map((chord) => chord.hrString).join('\n'));
+    }
+  }
+
+  getMIDICodesByKeys(keys) {
+    return keys.map((key) => key.master.getMidiCode());
+  }
+
   getKeyByMIDICode(code) {
     return this.keys.filter((key) => key.master.getMidiCode() === code)[0] || null;
   }
-
-  getMajorChord(code) {}
-
-  getNext(root) {}
 }
