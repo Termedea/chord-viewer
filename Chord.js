@@ -23,6 +23,11 @@ export default class Chord {
       root: [0, 3, 7],
       first: [-9, -5, 0],
       second: [-5, 0, 3]
+    },
+    diminished: {
+      root: [0, 3, 6],
+      first: [-9, -6, 0],
+      second: [-6, 0, 3]
     }
   };
 

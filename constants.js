@@ -5,5 +5,6 @@ export const HR = {
   root: 'root position',
   first: '1st inversion',
   second: '2nd inversion',
-  minor: 'Minor'
+  minor: 'Minor',
+  diminished: 'Diminished'
 };
