@@ -1,6 +1,6 @@
 import AppKey from './AppKey.js';
 import Chord from './Chord.js';
-import { XMLNS } from './constants.js';
+import { XMLNS } from '../constants.js';
 
 export default class AppKeyboard {
   sizeFactor = 2;

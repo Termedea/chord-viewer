@@ -1,99 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Piano test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Titillium+Web:wght@300&display=swap"
+      rel="stylesheet" />
+    <style>
+      :root {
+        --black: rgb(58, 56, 69);
+        --blue: rgb(86, 55, 133);
+      }
 
-  <title>Piano test</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Titillium+Web:wght@300&display=swap"
-    rel="stylesheet" />
-  <style>
-    :root {
-      --black: rgb(58, 56, 69);
-      --blue: rgb(86, 55, 133);
-    }
+      body {
+        font-family: 'Noto Sans', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        color: var(--black);
+      }
 
-    body {
-      font-family: 'Noto Sans', sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      color: var(--black);
-    }
+      h2 {
+        font-size: 3rem;
+        font-family: 'Titillium Web', sans-serif;
+        margin-bottom: 2rem;
+      }
 
-    h2 {
-      font-size: 3rem;
-      font-family: 'Titillium Web', sans-serif;
-      margin-bottom: 2rem;
-    }
+      h3 {
+        margin-bottom: 3rem;
+      }
 
-    h3 {
-      margin-bottom: 3rem;
-    }
+      #playArea {
+        padding-top: 4rem;
+        width: 100vw;
+        height: 100vh;
+        background: #eee;
+        margin: 0 auto;
+        text-align: center;
+      }
 
-    #playArea {
-      padding-top: 4rem;
-      width: 100vw;
-      height: 100vh;
-      background: #eee;
-      margin: 0 auto;
-      text-align: center;
-    }
+      .answer {
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        justify-content: center;
+      }
 
-    .answer {
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      justify-content: center;
-    }
+      .answer__label {
+        font-size: 1.2rem;
+        display: inline-block;
+        margin-right: 2rem;
+      }
 
-    .answer__label {
-      font-size: 1.2rem;
-      display: inline-block;
-      margin-right: 2rem;
-    }
+      .answer__input {
+        padding: 0.3rem 0.5rem;
+        border-radius: 0.3rem;
+        outline: 0;
+        border: 2px solid var(--black);
+      }
 
-    .answer__input {
-      padding: 0.3rem 0.5rem;
-      border-radius: 0.3rem;
-      outline: 0;
-      border: 2px solid var(--black);
-    }
+      .answer,
+      .question {
+        display: none;
+      }
+    </style>
+  </head>
 
-    .answer,
-    .question {
-      display: none;
-    }
-  </style>
-</head>
-
-<body>
-  <div id="playArea">
-
-    <div class="output">
-      <div class="question">
-        <h2 class="question__heading" id="questionHeading">Play</h2>
-        <h3 class="question__sub-heading" id="question">C# minor, 1st inversion</h3>
+  <body>
+    <div id="playArea">
+      <div class="output">
+        <div class="question">
+          <h2 class="question__heading" id="questionHeading">Play</h2>
+          <h3 class="question__sub-heading" id="question">C# minor, 1st inversion</h3>
+        </div>
+        <div class="info">
+          <h2>What chord is this?</h2>
+          <h3 id="identification"></h3>
+        </div>
       </div>
-      <div class="info">
-
-        <h2>What chord is this?</h2>
-        <h3 id="identification"></h3>
+      <div class="answer" id="answer">
+        <label class="answer__label" for="answer">Answer:</label>
+        <input class="answer__input" type="text" name="answerInput" id="answerInput" />
       </div>
+      <div id="svgRoot"></div>
     </div>
-    <div class="answer" id="answer">
-      <label class="answer__label" for="answer">Answer:</label>
-      <input class="answer__input" type="text" name="answerInput" id="answerInput" />
-    </div>
-    <div id="svgRoot"></div>
-  </div>
-  <!-- <svg id="piano" xml:space="preserve"> -->
-  <!--       <g id="orig">
+    <!-- <svg id="piano" xml:space="preserve"> -->
+    <!--       <g id="orig">
         <rect style="fill: white; stroke: black" x="0" y="0" width="23" height="120" />
         <rect style="fill: white; stroke: black" x="23" y="0" width="23" height="120" />
         <rect style="fill: white; stroke: black" x="46" y="0" width="23" height="120" />
@@ -108,10 +106,8 @@
         <rect style="fill: black; stroke: black" x="108.25" y="0" width="13" height="80" />
         <rect style="fill: black; stroke: black" x="134.75" y="0" width="13" height="80" />
       </g> -->
-  <!-- </svg> -->
+    <!-- </svg> -->
 
-
-  <script type="module" src="script.js"></script>
-</body>
-
+    <script type="module" src="script.js"></script>
+  </body>
 </html>

@@ -1,5 +1,5 @@
-import AppKeyboard from './AppKeyboard.js';
-import Piano from './Piano.js';
+import AppKeyboard from './Classes/AppKeyboard.js';
+import Piano from './Classes/Piano.js';
 import { XMLNS } from './constants.js';
 const appKeyboard = new AppKeyboard(new Piano(), onMessageChange);
 

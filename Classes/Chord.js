@@ -1,4 +1,4 @@
-import { HR } from './constants.js';
+import { HR } from '../constants.js';
 export default class Chord {
   /*   mode = {
     major: {
