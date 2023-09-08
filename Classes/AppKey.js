@@ -5,7 +5,8 @@ export default class AppKey {
   master = null;
   state = 'up';
   baseColor = '';
-  activeColor = 'rgb(86, 55, 133)';
+  activeColor = 'rgb(86, 85, 133)';
+  strokeColor = 'rgb(180, 90, 90)';
   next = null;
   prev = null;
 
@@ -54,12 +55,16 @@ export default class AppKey {
   press() {
     this.state = 'down';
     this.gfxKey.style.fill = this.activeColor;
+    this.gfxKey.style.stroke = this.strokeColor;
+    this.gfxKey.style.strokeWidth = '4px';
     return this;
   }
 
   release() {
     this.state = 'up';
     this.gfxKey.style.fill = this.baseColor;
+    this.gfxKey.style.stroke = '#000000';
+    this.gfxKey.style.strokeWidth = '1px';
     return this;
   }
 

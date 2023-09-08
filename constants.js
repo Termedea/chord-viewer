@@ -6,5 +6,8 @@ export const HR = {
   first: '1st inversion',
   second: '2nd inversion',
   minor: 'Minor',
-  diminished: 'Diminished'
+  diminished: 'Diminished',
+  flat: '♭',
+  sharp: '♯',
+  dimShort: '°'
 };

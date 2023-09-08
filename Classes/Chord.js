@@ -1,18 +1,6 @@
 import { HR } from '../constants.js';
+import Scales from './Scales.js';
 export default class Chord {
-  /*   mode = {
-    major: {
-      root: [0, 4, 7],
-      first: [0, 3, 8],
-      second: [0, 5, 9]
-    },
-    minor: {
-      root: [0, 3, 7],
-      first: [0, 4, 9],
-      second: [0, 5, 8]
-    }
-  }; */
-
   modes = {
     major: {
       root: [0, 4, 7],
@@ -57,13 +45,13 @@ export default class Chord {
           const rootIndex = this.findRoot(mode[variantKey]);
 
           const correctVariant = {
-            rootKey: keys[rootIndex].master.name,
+            rootKey: keys[rootIndex].master.fullName,
             mode: modeKey,
             variant: variantKey,
             variantCode: mode[variantKey],
-            hrString: `You played: ${keys[rootIndex].master.name.join()} ${HR[modeKey]}, ${HR[variantKey]}`
+            hrString: `You played: ${keys[rootIndex].master.name} ${HR[modeKey]}, ${HR[variantKey]}`
           };
-
+          new Scales(correctVariant);
           matches.push(correctVariant);
         }
       });

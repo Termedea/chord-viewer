@@ -1,4 +1,6 @@
+/* Refactor to separate for Chord and for scales   */
 import AppKey from './AppKey.js';
+import Scales from './Scales.js';
 import Chord from './Chord.js';
 import { XMLNS } from '../constants.js';
 
@@ -20,7 +22,8 @@ export default class AppKeyboard {
   };
 
   pianoMaster = null;
-  chords;
+  chords = null;
+  scales = null;
   changeMessage;
 
   constructor(pianoMaster, changeMessage) {
@@ -32,7 +35,11 @@ export default class AppKeyboard {
 
     let prev = null;
 
-    for (let i = this.octStart * octLength; i < (this.octStart + this.octCount) * octLength; i++) {
+    for (
+      let i = this.octStart * octLength;
+      i < (this.octStart + this.octCount) * octLength;
+      i++
+    ) {
       const current = new AppKey(this.pianoMaster.keys[i]);
       current.prev = prev;
       prev && (prev.next = current);
@@ -73,13 +80,19 @@ export default class AppKeyboard {
         size = this.white;
         pos.x = leftPos;
         leftPos += size.width * this.sizeFactor;
-        currentKey.generateGfx(pos, { width: size.width * this.sizeFactor, height: size.height * this.sizeFactor });
+        currentKey.generateGfx(pos, {
+          width: size.width * this.sizeFactor,
+          height: size.height * this.sizeFactor
+        });
         gfxOct.prepend(currentKey.getGfxKey());
       } else {
         size = this.black;
         pos.x = this.black.baseX[blackCounter] * this.sizeFactor;
         blackCounter++;
-        currentKey.generateGfx(pos, { width: size.width * this.sizeFactor, height: size.height * this.sizeFactor });
+        currentKey.generateGfx(pos, {
+          width: size.width * this.sizeFactor,
+          height: size.height * this.sizeFactor
+        });
         gfxOct.append(currentKey.getGfxKey());
       }
     }
@@ -113,6 +126,8 @@ export default class AppKeyboard {
   }
 
   getKeyByMIDICode(code) {
-    return this.keys.filter((key) => key.master.getMidiCode() === code)[0] || null;
+    return (
+      this.keys.filter((key) => key.master.getMidiCode() === code)[0] || null
+    );
   }
 }
