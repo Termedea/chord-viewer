@@ -2,18 +2,18 @@ import { XMLNS } from '../constants.js';
 
 export default class AppKey {
   gfxKey = null;
-  master = null;
+  pianoKey = null;
   state = 'up';
   baseColor = '';
   activeColor = 'rgb(86, 85, 133)';
-  strokeColor = 'rgb(180, 90, 90)';
+  strokeColor = 'rgb(22, 22, 22)';
   next = null;
   prev = null;
 
-  constructor(master) {
-    this.master = master;
+  constructor(pianoKey) {
+    this.pianoKey = pianoKey;
 
-    if (master.color === 'white') {
+    if (pianoKey.color === 'white') {
       this.baseColor = '#ffffff';
     } else {
       this.baseColor = 'rgb(58, 56, 69)';
@@ -39,8 +39,8 @@ export default class AppKey {
     key.setAttributeNS(null, 'x', pos.x);
     key.setAttributeNS(null, 'width', size.width);
     key.setAttributeNS(null, 'height', size.height);
-    key.setAttributeNS(null, 'id', this.master.midiCode);
-    key.setAttributeNS(null, 'data-name', this.master.name[0]);
+    key.setAttributeNS(null, 'id', this.pianoKey.midiCode);
+    key.setAttributeNS(null, 'data-name', this.pianoKey.name[0]);
     this.gfxKey = key;
   }
 

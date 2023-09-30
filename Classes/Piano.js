@@ -1,65 +1,66 @@
 import Key from './Key.js';
 export default class Piano {
   keys = [];
+
   octave = [
     {
-      name: ['C'],
-      fullName: ['bsharp', 'c'],
+      name: 'C',
+      detailedName: ['B♯', 'C'],
       color: 'white'
     },
     {
-      name: ['D♭'],
-      fullName: ['csharp', 'dflat'],
+      name: 'D♭',
+      detailedName: ['C♯', 'D♭'],
       color: 'black'
     },
     {
-      name: ['D'],
-      fullName: ['d'],
+      name: 'D',
+      detailedName: ['D'],
       color: 'white'
     },
     {
-      name: ['E♭'],
-      fullName: ['dsharp', 'eflat'],
+      name: 'E♭',
+      detailedName: ['D♯', 'E♭'],
       color: 'black'
     },
     {
-      name: ['E'],
-      fullName: ['e', 'fflat'],
+      name: 'E',
+      detailedName: ['E', 'F♭'],
       color: 'white'
     },
     {
-      name: ['F'],
-      fullName: ['esharp', 'f'],
+      name: 'F',
+      detailedName: ['E♯', 'F'],
       color: 'white'
     },
     {
-      name: ['G♭'],
-      fullName: ['gflat', 'fsharp'],
+      name: 'G♭',
+      detailedName: ['G♭', 'F♯'],
       color: 'black'
     },
     {
-      name: ['G'],
-      fullName: ['g'],
+      name: 'G',
+      detailedName: ['G'],
       color: 'white'
     },
     {
-      name: ['A♭'],
-      fullName: ['aflat', 'gsharp'],
+      name: 'A♭',
+      detailedName: ['A♭', 'G♯'],
       color: 'black'
     },
     {
-      name: ['A'],
-      fullName: ['a'],
+      name: 'A',
+      detailedName: ['A'],
       color: 'white'
     },
     {
-      name: ['B♭'],
-      fullName: ['bflat', 'asharp'],
+      name: 'B♭',
+      detailedName: ['B♭', 'A♯'],
       color: 'black'
     },
     {
-      name: ['B'],
-      fullName: ['b', 'cflat'],
+      name: 'B',
+      detailedName: ['B', 'C♭'],
       color: 'white'
     }
   ];
@@ -72,5 +73,8 @@ export default class Piano {
 
       this.keys.push(new Key({ ...currKey, oct, midiCode: i }));
     }
+  }
+  getOctave() {
+    return this.octave;
   }
 }

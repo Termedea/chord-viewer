@@ -1,9 +1,12 @@
 /* Regler
 
-//// Relation mellan tangenter i olika skalor
-1 = 1 halvton (direkt angränsande, C -> C# eller E -> F)
-2 = 2 halvtoner (till synes direkt angränsande, t.ex. C -> D. C# är egentligen emellan, så C -> D är 2 halvtoner)
 
+
+///Definition halvton, helton.
+1 = 1 halvton (direkt angränsande, C -> C# eller E -> F)
+2 = 2 halvtoner C -> D (kan se ut som direkt angränsande, eftersom de är två vita bredvid varandra med C# (svart tangent) är emellan.)
+
+//// Relation mellan tangenter i olika skalor
 Major (dur): 2212221
 Minor (moll): 2122122
 
@@ -73,9 +76,61 @@ VI: A♭,
 VII: B♭
 
 */
-
+import Chord from './Chord.js';
 export default class Scales {
-  constructor(variant) {
+  chord = null;
+  constructor(pianoMaster) {
+    this.chord = new Chord();
+    this.pianoMaster = pianoMaster;
+  }
+
+  scalesDef = {
+    major: {
+      degrees: ['I', 'ii', 'iii', 'IV', 'V', 'vi', 'vii°'],
+      intervals: [0, 2, 2, 1, 2, 2, 2]
+    },
+    minor: {
+      degrees: ['i', 'ii°', 'III', 'iv', 'v', 'VI', 'VII'],
+      intervals: [0, 2, 1, 2, 2, 1, 2]
+    }
+  };
+  findScales(keys) {
+    const chord = this.chord.getMatches(keys);
+    console.log(chord[0]);
+    console.log(chord[0]?.modeInterval);
+
+    const octave = this.pianoMaster.getOctave();
+
+    const startKey = chord[0]?.rootKey?.name;
+
+    const startIndex = octave.findIndex((key) => key.name === startKey);
+
+    let currIndex = startIndex;
+
+    const scale = this.scalesDef.major.intervals.map((interval) => {
+      currIndex += interval;
+      const octIndex = currIndex % octave.length;
+      return octave[octIndex];
+    });
+
+    const duplicates = Object.values(
+      scale.reduce((c, v) => {
+        let k = v.name[0];
+
+        c[k] = c[k] || [];
+        c[k].push(v);
+        return c;
+      }, {})
+    ).reduce((c, v) => (v.length > 1 ? c.concat(v) : c), []);
+
+    console.log(duplicates);
+    const alternatives = duplicates.filter(
+      (key) => key.detailedName.length > 1
+    );
+    console.log(alternatives);
+  }
+
+  getScaleMatchmatches(variant) {
     console.log(variant);
   }
 }

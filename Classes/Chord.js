@@ -1,5 +1,5 @@
 import { HR } from '../constants.js';
-import Scales from './Scales.js';
+
 export default class Chord {
   modes = {
     major: {
@@ -40,18 +40,26 @@ export default class Chord {
     const matches = [];
     Object.keys(this.modes).forEach((modeKey) => {
       const mode = this.modes[modeKey];
+
       Object.keys(mode).forEach((variantKey) => {
         if (this.keysMatchVariant(mode[variantKey], keys)) {
           const rootIndex = this.findRoot(mode[variantKey]);
 
           const correctVariant = {
-            rootKey: keys[rootIndex].master.fullName,
+            rootKey: keys[rootIndex].pianoKey,
+            keys: keys.map((key) => {
+              return {
+                key: key.pianoKey,
+                root: key === keys[rootIndex]
+              };
+            }),
             mode: modeKey,
+            modeInterval: mode.root,
             variant: variantKey,
             variantCode: mode[variantKey],
-            hrString: `You played: ${keys[rootIndex].master.name} ${HR[modeKey]}, ${HR[variantKey]}`
+            hrString: `You played: ${keys[rootIndex].pianoKey.name} ${HR[modeKey]}, ${HR[variantKey]}`
           };
-          new Scales(correctVariant);
+
           matches.push(correctVariant);
         }
       });
@@ -60,7 +68,7 @@ export default class Chord {
   }
 
   keysMatchVariant(variant, keys) {
-    const codes = keys.map((key) => key.master.getMidiCode());
+    const codes = keys.map((key) => key.pianoKey.getMidiCode());
     const intervals = this.normalizeMIDICodeArray(codes);
 
     if (intervals.length !== variant.length) return false;

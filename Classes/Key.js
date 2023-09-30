@@ -1,6 +1,6 @@
 export default class Key {
   name = '';
-  fullName = [];
+  detailedName = '';
   midiCode = 0;
   octIdx = 0;
   color = '';
@@ -9,7 +9,7 @@ export default class Key {
 
   constructor(key) {
     this.name = key.name;
-    this.fullName = key.fullName;
+    this.detailedName = key.detailedName;
     this.midiCode = key.midiCode;
     this.octIdx = key.oct;
     this.color = key.color;

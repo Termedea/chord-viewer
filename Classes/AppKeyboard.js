@@ -29,6 +29,7 @@ export default class AppKeyboard {
   constructor(pianoMaster, changeMessage) {
     this.pianoMaster = pianoMaster;
     this.chord = new Chord();
+    this.scales = new Scales(pianoMaster);
     this.changeMessage = changeMessage;
 
     const octLength = this.pianoMaster.octave.length;
@@ -76,7 +77,7 @@ export default class AppKeyboard {
       const pos = { x: 0, y: 0 };
       let size = { width: 0, height: 0 };
 
-      if (currentKey.master.color === 'white') {
+      if (currentKey.pianoKey.color === 'white') {
         size = this.white;
         pos.x = leftPos;
         leftPos += size.width * this.sizeFactor;
@@ -107,6 +108,7 @@ export default class AppKeyboard {
 
   release = (code) => {
     const currKey = this.getKeyByMIDICode(code);
+
     if (currKey) currKey.release();
   };
 
@@ -115,19 +117,26 @@ export default class AppKeyboard {
   }
 
   keyStateChange() {
-    const matches = this.chord.findChords(this.getAllPressed());
-    if (matches.length > 0) {
-      this.changeMessage(matches.map((chord) => chord.hrString).join('\n'));
+    const pressed = this.getAllPressed();
+
+    if (pressed.length > 2) {
+      const scaleMatches = this.scales.findScales(pressed);
+      const chordMatches = this.chord.findChords(pressed);
+      if (chordMatches.length > 0) {
+        this.changeMessage(
+          chordMatches.map((chord) => chord.hrString).join('\n')
+        );
+      }
     }
   }
 
   getMIDICodesByKeys(keys) {
-    return keys.map((key) => key.master.getMidiCode());
+    return keys.map((key) => key.pianoKey.getMidiCode());
   }
 
   getKeyByMIDICode(code) {
     return (
-      this.keys.filter((key) => key.master.getMidiCode() === code)[0] || null
+      this.keys.filter((key) => key.pianoKey.getMidiCode() === code)[0] || null
     );
   }
 }

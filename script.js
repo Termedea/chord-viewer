@@ -8,7 +8,9 @@ function onMessageChange(message) {
 }
 
 const svg = document.implementation.createDocument(XMLNS, 'svg', null);
-document.getElementById('svgRoot').appendChild(appKeyboard.generateGfx(svg.documentElement), true);
+document
+  .getElementById('svgRoot')
+  .appendChild(appKeyboard.generateGfx(svg.documentElement), true);
 
 /* Midi */
 
@@ -18,7 +20,9 @@ document.getElementById('svgRoot').appendChild(appKeyboard.generateGfx(svg.docum
   console.log('WebMIDI is not supported in this browser.');
 } */
 
-navigator.requestMIDIAccess().then(onMIDISuccess, () => console.log('Could not access gfxPianoMaster'));
+navigator
+  .requestMIDIAccess()
+  .then(onMIDISuccess, () => console.log('Could not access gfxPianoMaster'));
 
 function onMIDISuccess(midiAccess) {
   for (var input of midiAccess.inputs.values()) {
@@ -27,11 +31,13 @@ function onMIDISuccess(midiAccess) {
 }
 
 function getMIDIMessage(midiMessage) {
-  if (midiMessage.data[0] === 144) {
+  /* Av någon anledning bytte4s koden från 144 till 154 vid ett tillfälle. Kolla här om grafik inte svarar på nedtryck */
+  //console.log(midiMessage.data[0]);
+  if (midiMessage.data[0] === 154 || midiMessage.data[0] === 144) {
     appKeyboard.press(midiMessage.data[1]);
     /* Ska vara med i båda framöver, eventuellt */
     appKeyboard.keyStateChange();
-  } else {
+  } else if (midiMessage.data[0] === 138) {
     appKeyboard.release(midiMessage.data[1]);
   }
 }
