@@ -79,40 +79,72 @@ VII: B♭
 import Chord from './Chord.js';
 export default class Scales {
   chord = null;
+  octave = null;
   constructor(pianoMaster) {
     this.chord = new Chord();
     this.pianoMaster = pianoMaster;
+    this.octave = pianoMaster.getOctave();
   }
 
   scalesDef = {
     major: {
-      degrees: ['I', 'ii', 'iii', 'IV', 'V', 'vi', 'vii°'],
-      intervals: [0, 2, 2, 1, 2, 2, 2]
+      degrees: [
+        { name: 'I', mode: 'major' },
+        { name: 'ii', mode: 'minor' },
+        { name: 'iii', mode: 'minor' },
+        { name: 'IV', mode: 'major' },
+        { name: 'V', mode: 'major' },
+        { name: 'vi', mode: 'minor' },
+        { name: 'vii°', mode: 'diminished' }
+      ],
+      intervals: [0, 2, 2, 1, 2, 2, 2],
+      accIntervals: [0, 2, 4, 5, 7, 9, 11]
     },
     minor: {
       degrees: ['i', 'ii°', 'III', 'iv', 'v', 'VI', 'VII'],
-      intervals: [0, 2, 1, 2, 2, 1, 2]
+      intervals: [0, 2, 1, 2, 2, 1, 2],
+      accIntervals: [0, 2, 4, 5, 7, 9, 11]
     }
   };
+
+  keySign = {};
+
   findScales(keys) {
-    const chord = this.chord.getMatches(keys);
-    console.log(chord[0]);
-    console.log(chord[0]?.modeInterval);
+    const chord = this.chord.getMatches(keys)[0];
+    const { mode } = chord;
 
-    const octave = this.pianoMaster.getOctave();
+    const startKey = chord?.rootKey?.name;
 
-    const startKey = chord[0]?.rootKey?.name;
+    const startIndex = this.octave.findIndex((key) => key.name === startKey);
 
-    const startIndex = octave.findIndex((key) => key.name === startKey);
+    const firstScale = this.getScale(startIndex, mode);
+    const fifthScale = this.getScale(startIndex + 7, mode);
+    const fourthScale = this.getScale(startIndex + 5, mode);
+    this.getKeySignature(firstScale, mode);
+    this.getKeySignature(fifthScale, mode);
+    this.getKeySignature(fourthScale, mode);
+  }
 
+  getScale(startIndex, mode) {
     let currIndex = startIndex;
-
-    const scale = this.scalesDef.major.intervals.map((interval) => {
+    const scale = this.scalesDef[mode].intervals.map((interval) => {
       currIndex += interval;
-      const octIndex = currIndex % octave.length;
-      return octave[octIndex];
+
+      const octIndex = currIndex % this.octave.length;
+      return this.octave[octIndex];
     });
 
+    return scale;
+  }
+
+  getKeySignature(scale, mode) {
+    this.keySign = scale.map((key, i) => {
+      return { name: key.name, degree: this.scalesDef[mode].degrees[i] };
+    });
+    console.log(this.keySign);
+  }
+
+  checkName(scale) {
     const duplicates = Object.values(
       scale.reduce((c, v) => {
         let k = v.name[0];
@@ -128,9 +160,5 @@ export default class Scales {
       (key) => key.detailedName.length > 1
     );
     console.log(alternatives);
-  }
-
-  getScaleMatchmatches(variant) {
-    console.log(variant);
   }
 }
